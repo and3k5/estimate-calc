@@ -1,19 +1,20 @@
 {
   "name": "estimate-calc",
-  "version": "0.0.0",
-  "description": "A tool to help estimating projects",
-  "main": "index.js",
+  "description": "A base for tools to help estimating projects",
+  "private": "true",
   "scripts": {
     "test": "npx jasmine"
   },
-  "keywords": [
-    "calc",
-    "time",
-    "estimate",
-    "calculator"
-  ],
-  "author": "Anders K",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/and3k5/estimate-calc.git"
+  },
+  "author": "",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/and3k5/estimate-calc/issues"
+  },
+  "homepage": "https://github.com/and3k5/estimate-calc#readme",
   "devDependencies": {
     "jasmine": "^3.6.3"
   }

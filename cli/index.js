@@ -1,4 +1,4 @@
-const timeCalc = require("./src/time-calc");
+const timeCalc = require("../lib/time-calc");
 const { EOL } = require("os");
 const { SSL_OP_TLS_ROLLBACK_BUG } = require("constants");
 const input = process.argv.slice(2).join(" ");

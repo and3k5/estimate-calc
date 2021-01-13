@@ -1,0 +1,20 @@
+{
+  "name": "@and3k5/estimate-calc-cli",
+  "version": "0.0.0",
+  "description": "A cli tool to help estimating projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jasmine"
+  },
+  "keywords": [
+    "calc",
+    "time",
+    "estimate",
+    "calculator"
+  ],
+  "author": "Anders K",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine": "^3.6.3"
+  }
+}
