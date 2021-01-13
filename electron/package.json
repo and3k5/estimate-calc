@@ -2,7 +2,7 @@
   "name": "@and3k5/estimate-calc-electron",
   "version": "0.0.0",
   "description": "An application to help estimating projects",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
       "start": "npx electron ."
   },
