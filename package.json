@@ -3,7 +3,9 @@
   "description": "A base for tools to help estimating projects",
   "private": "true",
   "scripts": {
-    "test": "npx jasmine"
+    "test": "npx jasmine",
+    "cli": "cd cli && npm start",
+    "electron": "cd electron && npm start"
   },
   "repository": {
     "type": "git",

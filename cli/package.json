@@ -4,7 +4,8 @@
   "description": "A cli tool to help estimating projects",
   "main": "index.js",
   "scripts": {
-    "test": "npx jasmine"
+    "test": "npx jasmine",
+    "start": "node index.js"
   },
   "keywords": [
     "calc",
