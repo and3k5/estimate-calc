@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, nativeTheme } = require('electron')
+
+nativeTheme.themeSource = "dark";
 
 function createWindow() {
     const win = new BrowserWindow({
