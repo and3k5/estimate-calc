@@ -1,5 +1,6 @@
 describe("TimeCalc", function () {
     const timeCalc = require("./");
+    
 
     it("can add with same notation", function () {
         var result = timeCalc("20m + 30m");
