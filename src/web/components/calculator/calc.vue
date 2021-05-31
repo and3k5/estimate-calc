@@ -9,12 +9,21 @@
                 />
             </div>
             <div>
-                Result: <span>{{ result }}</span>
+                Result: <span>{{ formattedResult }}</span>
             </div>
         </div>
 
         <div :class="$style['settings']">
-            <label>1 day = <input type="text" v-model="dayAmount"></label>
+            <div><label>1 day = <input type="text" v-model="dayAmount"></label></div>
+            <div>
+                <label>
+                    Result format 
+                    <select type="text" v-model="resultFormat">
+                        <option value="s:total">Total</option>
+                        <option v-for="notation in this.currentSetup.notations" :key="notation.notation" :value="notation.notation">{{notation.multiName}}</option>
+                    </select>
+                </label>
+            </div>
         </div>
     </div>
 </template>
@@ -52,7 +61,7 @@ export default {
             dayAmount: "8h",
             dayParserSetup: new TimeSetup(),
             currentSetup: null,
-            result: "",
+            resultFormat: "s:total"
         };
     },
     watch: {
@@ -68,18 +77,32 @@ export default {
                 }})
             },
             immediate: true,
-        },
-        "text": {
-            handler(newValue) {
-                try {
-                    this.result = parseInput(this.currentSetup, newValue);
-                }
-                catch (e) {
-                    this.result = "";
-                }
-            },
-            immediate: false,
         }
     },
+    computed: {
+        result() {
+            try {
+                return parseInput(this.currentSetup, this.text);
+            }
+            catch (e) {
+                return null;
+            }
+        },
+        formattedResult() {
+            if (this.resultFormat == "s:total") {
+                if (this.result == null)
+                    return "";
+                return this.result.toString();
+            }else{
+               var notation = getNotationByName(this.currentSetup.notations, this.resultFormat);
+               if (this.result == null) {
+                   return "0 "+notation.notation;
+               }
+               return (this.result.totalMs / notation.ms) + " " + notation.notation;
+            }
+            
+            
+        }
+    }
 };
 </script>
