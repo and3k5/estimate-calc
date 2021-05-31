@@ -1,8 +1,9 @@
+const { TimeSetup } = require("../time/setup");
 const parseInput = require("./parse-input");
 const reduce = require("./reduce");
 
-module.exports = function (input) {
-    const chunks = parseInput(input);
+module.exports.parseInput = function (setup, input) {
+    const chunks = parseInput(setup, input);
     const result = reduce(chunks);
-    return result.toString();
+    return result;
 }

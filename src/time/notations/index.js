@@ -1,4 +1,4 @@
-const notations = [
+const defNotations = [
     // {
     //     notation: "ms",
     //     singleName: "millisecond",
@@ -41,16 +41,22 @@ const notations = [
         multiName: "days",
         propertyName: "days",
         order: 0,
-        ms: 1000 * 60 * 60 * 8,
-        relativeAmount: 8,
+        ms: 1000 * 60 * 60 * 24,
+        relativeAmount: 24,
     }
 ];
-notations.forEach((val, i, arr) => val.prev = arr[i - 1]);
-notations.forEach((val, i, arr) => val.next = arr[i + 1]);
+defNotations.forEach((val, i, arr) => val.prev = arr[i - 1]);
+defNotations.forEach((val, i, arr) => val.next = arr[i + 1]);
 
-module.exports.notations = notations;
+module.exports.defaultNotations = defNotations;
 
-module.exports.getNotationByName = function (notationName) {
+module.exports.getDefaultNotationByName = function (notationName) {
+    return getNotationByName(defNotations, notationName);
+}
+
+module.exports.getNotationByName = function (notations, notationName) {
+    if (!Array.isArray(notations))
+        throw new Error("First argument must be an array");
     const notation = notations.filter(n => n.notation == notationName)[0];
     return notation;
 }

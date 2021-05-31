@@ -1,6 +1,6 @@
 const { addAction, subAction } = require("./actions");
 const Time = require("../time");
-module.exports = function (str) {
+module.exports = function (setup, str) {
     return Array.from(str).reduce((a, b, i) => {
         if (b == "+") {
             if (i > 0)
@@ -20,7 +20,7 @@ module.exports = function (str) {
     }, [])
         .reduce((a, b, i) => {
             if (typeof (b) === "string") {
-                a.push(new Time(b))
+                a.push(new Time(setup, b))
             } else {
                 a.push(b);
             }

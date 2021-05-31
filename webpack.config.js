@@ -13,6 +13,29 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader'
             },
+            {
+                test: /\.css$/i,
+                oneOf: [
+                    {
+                        resourceQuery: /module/,
+                        use: [
+                            "vue-style-loader",
+                            {
+                                loader: "css-loader",
+                                options: {
+                                    modules: true
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        use: [
+                            'vue-style-loader',
+                            'css-loader'
+                        ]
+                    }
+                ],
+            }
         ]
     },
     output: {

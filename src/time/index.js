@@ -1,8 +1,12 @@
 const regex = (/(?<amount>[0-9]+)(?<notation>[a-z])/gi);
-const { notations, getNotationByName } = require("./notations");
+const { getNotationByName } = require("./notations");
+const { TimeSetup } = require("./setup");
 const { totalMsToObj, objToTotalMs } = require("./time-obj");
 
-function Time(...args) {
+function Time(setup, ...args) {
+    if (!(setup instanceof TimeSetup))
+        throw new Error("Setup parameter required");
+    this.setup = setup;
     var totalMs = 0;
 
     Object.defineProperty(this, "totalMs", {
@@ -14,13 +18,13 @@ function Time(...args) {
         }
     });
 
-    for (const notation of notations) {
+    for (const notation of setup.notations) {
         Object.defineProperty(this, notation.propertyName, {
             get: function () {
-                return totalMsToObj(totalMs)[notation.propertyName];
+                return totalMsToObj(setup, totalMs)[notation.propertyName];
             },
             set: function (newValue) {
-                var oldValue = totalMsToObj(totalMs)[notation.propertyName];
+                var oldValue = totalMsToObj(setup, totalMs)[notation.propertyName];
                 var diff = newValue - oldValue;
                 if (diff === 0)
                     return;
@@ -31,13 +35,13 @@ function Time(...args) {
 
     if (typeof (args[0]) === "string") {
         for (const item of args[0].matchAll(regex)) {
-            const notation = getNotationByName(item.groups.notation);
+            const notation = getNotationByName(setup.notations, item.groups.notation);
             if (notation == null)
-                throw new Error("Did not found a notation for: " + item.groups.notation);
+                throw new Error("Did not find a notation for: " + item.groups.notation);
             totalMs += notation.ms * parseInt(item.groups.amount);
         }
     } else if (typeof (args[0]) === "object" && args[0] != null) {
-        totalMs = objToTotalMs(args[0]);
+        totalMs = objToTotalMs(setup, args[0]);
     }
 
     this.add = function (time) {
@@ -53,12 +57,12 @@ function Time(...args) {
         return this;
     };
     this.clone = function () {
-        return new Time(this)
+        return new Time(setup, this)
     }
 }
 Time.prototype.toString = function () {
     const time = this;
-    return notations.map(notation => ({ notation, value: time[notation.propertyName] }))
+    return this.setup.notations.map(notation => ({ notation, value: time[notation.propertyName] }))
         .filter(item => item.value > 0)
         .sort((a, b) => a.notation.order - b.notation.order)
         .map(x => x.value + "" + x.notation.notation)
