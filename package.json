@@ -3,7 +3,8 @@
   "description": "A base for tools to help estimating projects",
   "private": "true",
   "scripts": {
-    "test": "npx jasmine"
+    "test": "npx jasmine",
+    "build": "npx webpack --mode production"
   },
   "repository": {
     "type": "git",
