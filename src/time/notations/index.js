@@ -1,4 +1,22 @@
 const notations = [
+    // {
+    //     notation: "ms",
+    //     singleName: "millisecond",
+    //     multiName: "milliseconds",
+    //     propertyName: "milliseconds",
+    //     order: 4,
+    //     ms: 1,
+    //     relativeAmount: 1,
+    // },
+    {
+        notation: "s",
+        singleName: "second",
+        multiName: "seconds",
+        propertyName: "seconds",
+        order: 3,
+        ms: 1000,
+        relativeAmount: 1000,
+    },
     {
         notation: "m",
         singleName: "minute",
@@ -6,7 +24,7 @@ const notations = [
         propertyName: "minutes",
         order: 2,
         ms: 1000 * 60,
-        relativeAmount: 1000 * 60,
+        relativeAmount: 60,
     },
     {
         notation: "h",

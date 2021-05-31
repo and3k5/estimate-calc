@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import timeCalc from "../../../../lib/time-calc";
+import timeCalc from "../../../time-calc";
 export default {
     data() {
         return {

@@ -23,6 +23,7 @@ module.exports = {
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             title: "Estimate Calc",
+            template: "./src/web/index.ejs"
         })
     ]
 }
