@@ -6,6 +6,7 @@
                     type="text"
                     v-model="text"
                     placeholder="2h 30m + 1h 45m"
+                    v-keep-focus="true"
                 />
             </div>
             <div>

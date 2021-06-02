@@ -1,4 +1,5 @@
 import Vue from "vue";
+import "./extensions";
 import { calculator } from "./components";
 
 var mainEl = document.getElementById("app");
