@@ -1,7 +1,7 @@
-const { TimeSetup } = require("../setup");
+import { getNotationByName } from ".";
+import { TimeSetup } from "../setup";
 
 describe("getNotationByName", function () {
-    const { getNotationByName } = require("./");
     var setup = new TimeSetup();
 
     // it("returns milliseconds for ms", function () {

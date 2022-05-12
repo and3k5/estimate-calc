@@ -1,7 +1,7 @@
-const { TimeSetup } = require("../setup");
+import { TimeSetup } from "../setup";
+import { objToTotalMs, totalMsToObj } from "./";
 
 describe("totalMsToObj", function () {
-    const { totalMsToObj } = require("./");
     const setup = new TimeSetup();
 
     it("returns right object for ms of 5 minutes", function () {
@@ -21,7 +21,7 @@ describe("totalMsToObj", function () {
     });
 
     it("returns right object for ms of 5 minutes and 2 hours and 3 days", function () {
-        var time = totalMsToObj(setup, 1000 * 60 * 5 + 1000 * 60 * 60 * 2 + 1000 * 60 * 60 * 8 * 3);
+        var time = totalMsToObj(setup, 1000 * 60 * 5 + 1000 * 60 * 60 * 2 + 1000 * 60 * 60 * 24 * 3);
 
         expect(time.minutes).toBe(5);
         expect(time.hours).toBe(2);
@@ -30,7 +30,6 @@ describe("totalMsToObj", function () {
 });
 
 describe("objToTotalMs", function () {
-    const { objToTotalMs } = require("./");
     const setup = new TimeSetup();
 
     it("returns right amount of ms for object with 5 minutes", function () {
@@ -48,13 +47,13 @@ describe("objToTotalMs", function () {
     it("returns right amount of ms for object with 5 minutes and 2 hours and 3 days", function () {
         var ms = objToTotalMs(setup, { minutes: 5, hours: 2, days: 3 });
 
-        expect(ms).toBe(1000 * 60 * 5 + 1000 * 60 * 60 * 2 + 1000 * 60 * 60 * 8 * 3);
+        expect(ms).toBe(1000 * 60 * 5 + 1000 * 60 * 60 * 2 + 1000 * 60 * 60 * 24 * 3);
     });
 
     it("returns right amount of ms for object with 5 minutes and 2 hours and 3 days", function () {
         var ms = objToTotalMs(setup, { minutes: 5, hours: 2, days: 3 });
 
-        expect(ms).toBe(1000 * 60 * 5 + 1000 * 60 * 60 * 2 + 1000 * 60 * 60 * 8 * 3);
+        expect(ms).toBe(1000 * 60 * 5 + 1000 * 60 * 60 * 2 + 1000 * 60 * 60 * 24 * 3);
     });
 
     it("returns right amount of ms for object with 65 minutes", function () {
@@ -72,6 +71,6 @@ describe("objToTotalMs", function () {
     it("returns right amount of ms for object with 65 minutes and 1 hour and 5 days", function () {
         var ms = objToTotalMs(setup, { minutes: 65, hours: 1, days: 5 });
 
-        expect(ms).toBe(1000 * 60 * 65 + 1000 * 60 * 60 * 1 + 1000 * 60 * 60 * 8 * 5);
+        expect(ms).toBe(1000 * 60 * 65 + 1000 * 60 * 60 * 1 + 1000 * 60 * 60 * 24 * 5);
     });
 });

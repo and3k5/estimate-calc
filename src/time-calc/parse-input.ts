@@ -1,7 +1,7 @@
+import { Time } from "../time";
 import { TimeSetup } from "../time/setup";
 import { addAction, subAction } from "./actions";
 
-const Time = require("../time");
 export default function (setup: TimeSetup, str: string) {
     return Array.from(str).reduce((a: any[], b, i) => {
         if (b == "+") {

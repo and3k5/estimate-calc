@@ -77,6 +77,3 @@ Time.prototype.toString = function () {
         .map(x => x.value + "" + x.notation.notation)
         .join(" ");
 }
-
-
-module.exports = Time;

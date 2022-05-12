@@ -1,6 +1,8 @@
+import { Time } from "./";
+import { TimeSetup } from "./setup";
+
 describe("Time type", function () {
-    const Time = require("./");
-    const { TimeSetup } = require("./setup");
+    
     const setup = new TimeSetup({ defaultNotations: true });
 
     it("returns right amount of minutes", function () {
@@ -15,8 +17,8 @@ describe("Time type", function () {
         var time = new Time(setup, "10h");
 
         expect(time.minutes).toBe(0);
-        expect(time.hours).toBe(2);
-        expect(time.days).toBe(1);
+        expect(time.hours).toBe(10);
+        expect(time.days).toBe(0);
     });
 
     it("returns right amount of days", function () {
