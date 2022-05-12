@@ -1,11 +1,11 @@
-const { notations } = require("../notations");
+import { TimeSetup } from "../setup";
 
-module.exports.totalMsToObj = function (setup, ms) {
+export function totalMsToObj(setup : TimeSetup, ms : number) {
     const sortedNotations = setup.notations.concat().sort((a, b) => b.ms - a.ms);
     var obj = {};
     for (var notation of sortedNotations) {
         let value = Math.floor(ms / notation.ms);
-        obj[notation.propertyName] = value;
+        (obj as any)[notation.propertyName] = value;
         if (value > 0) {
             ms -= value * notation.ms;
         }
@@ -14,7 +14,7 @@ module.exports.totalMsToObj = function (setup, ms) {
     return obj;
 }
 
-module.exports.objToTotalMs = function (setup, obj) {
+export function objToTotalMs(setup : TimeSetup, obj : any) {
     let ms = 0;
     for (var notation of setup.notations) {
         if (!obj.hasOwnProperty(notation.propertyName))

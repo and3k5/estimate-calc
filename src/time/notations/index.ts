@@ -1,3 +1,14 @@
+export interface Notation {
+    notation: string;
+    singleName: string;
+    multiName: string;
+    propertyName: string;
+    order: number;
+    ms: number;
+    relativeAmount: number;
+    prev: Notation;
+    next: Notation;
+}
 const defNotations = [
     // {
     //     notation: "ms",
@@ -44,17 +55,18 @@ const defNotations = [
         ms: 1000 * 60 * 60 * 24,
         relativeAmount: 24,
     }
-];
+] as Notation[];
+
 defNotations.forEach((val, i, arr) => val.prev = arr[i - 1]);
 defNotations.forEach((val, i, arr) => val.next = arr[i + 1]);
 
-module.exports.defaultNotations = defNotations;
+export const defaultNotations = defNotations;
 
-module.exports.getDefaultNotationByName = function (notationName) {
+export function getDefaultNotationByName(notationName : string) {
     return getNotationByName(defNotations, notationName);
 }
 
-module.exports.getNotationByName = function (notations, notationName) {
+export function getNotationByName(notations : Notation[], notationName : string) {
     if (!Array.isArray(notations))
         throw new Error("First argument must be an array");
     const notation = notations.filter(n => n.notation == notationName)[0];

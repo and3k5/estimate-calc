@@ -4,12 +4,20 @@ const path = require('path');
 
 module.exports = function (env) {
     const webApp = {
-        entry: "./src/index.js",
+        entry: "./src",
+        resolve: {
+            extensions: [ '.tsx', '.ts', '.js' ],
+        },
         module: {
             rules: [
                 {
                     test: /\.vue$/,
                     loader: 'vue-loader'
+                },
+                {
+                    test: /\.tsx?$/,
+                    exclude: /node_modules/,
+                    loader: "ts-loader"
                 },
                 {
                     test: /\.js$/,
@@ -53,9 +61,17 @@ module.exports = function (env) {
         ]
     };
     const lib = {
-        entry: "./src/lib/index.js",
+        entry: "./src/lib",
+        resolve: {
+            extensions: [ '.tsx', '.ts', '.js' ],
+        },
         module: {
             rules: [
+                {
+                    test: /\.tsx?$/,
+                    exclude: /node_modules/,
+                    loader: "ts-loader"
+                },
                 {
                     test: /\.js$/,
                     loader: 'babel-loader'
@@ -75,4 +91,25 @@ module.exports = function (env) {
         },
     };
     return [webApp, lib];
+}
+
+module.exports.createTestConfiguration = function () {
+    return {
+        resolve: {
+            extensions: [ '.tsx', '.ts', '.js' ],
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    exclude: /node_modules/,
+                    loader: "ts-loader"
+                },
+                {
+                    test: /\.js$/,
+                    loader: 'babel-loader'
+                },
+            ]
+        }
+    };
 }

@@ -1,4 +1,4 @@
-module.exports = function (chunks) {
+export default function (chunks : any[]) {
     while (chunks.length > 1) {
         // var a = chunks.shift();
         // var action = chunks.shift();

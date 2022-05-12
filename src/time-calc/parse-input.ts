@@ -1,7 +1,9 @@
-const { addAction, subAction } = require("./actions");
+import { TimeSetup } from "../time/setup";
+import { addAction, subAction } from "./actions";
+
 const Time = require("../time");
-module.exports = function (setup, str) {
-    return Array.from(str).reduce((a, b, i) => {
+export default function (setup: TimeSetup, str: string) {
+    return Array.from(str).reduce((a: any[], b, i) => {
         if (b == "+") {
             if (i > 0)
                 a.push(addAction);
