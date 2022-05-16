@@ -2,6 +2,12 @@ import { TimeSetup } from "../time/setup";
 import { parseInput } from "./";
 
 describe("parseInput", function () {
+    it("merges notations correcly", function () {
+        var result = parseInput(new TimeSetup(), "20m + 30m");
+
+        expect(result.getNotationValue("minutes")).toBe(50);
+    });
+
     it("can add with same notation", function () {
         var result = parseInput(new TimeSetup(), "20m + 30m");
 
@@ -23,5 +29,11 @@ describe("parseInput", function () {
     it("can subtract with two different notations", function () {
         var result = parseInput(new TimeSetup(),"1h - 20m");
         expect(result.toString()).toBe("40m");
+    });
+
+    it("can return negative value", function () {
+        var result = parseInput(new TimeSetup(),"20m - 30m");
+
+        expect(result.toString()).toBe("-10m");
     });
 });

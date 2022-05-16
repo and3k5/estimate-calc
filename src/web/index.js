@@ -3,4 +3,4 @@ import { calculator } from "./components";
 
 var mainEl = document.getElementById("app");
 
-new Vue(calculator.calc).$mount(mainEl);
+new Vue(calculator.calcControl).$mount(mainEl);

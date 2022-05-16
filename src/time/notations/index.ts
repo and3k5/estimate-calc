@@ -8,6 +8,7 @@ export interface Notation {
     relativeAmount: number;
     prev: Notation;
     next: Notation;
+    visibleByDefault: boolean;
 }
 const defNotations = [
     // {
@@ -27,6 +28,7 @@ const defNotations = [
         order: 3,
         ms: 1000,
         relativeAmount: 1000,
+        visibleByDefault: false,
     },
     {
         notation: "m",
@@ -36,6 +38,7 @@ const defNotations = [
         order: 2,
         ms: 1000 * 60,
         relativeAmount: 60,
+        visibleByDefault: true,
     },
     {
         notation: "h",
@@ -45,6 +48,7 @@ const defNotations = [
         order: 1,
         ms: 1000 * 60 * 60,
         relativeAmount: 60,
+        visibleByDefault: false,
     },
     {
         notation: "d",
@@ -54,6 +58,7 @@ const defNotations = [
         order: 0,
         ms: 1000 * 60 * 60 * 24,
         relativeAmount: 24,
+        visibleByDefault: false,
     }
 ] as Notation[];
 

@@ -12,6 +12,15 @@ describe("totalMsToObj", function () {
         expect(time.days).toBe(0);
     });
 
+    it("returns right object for ms of -5 seconds", function () {
+        var time = totalMsToObj(setup, 1000 * -5);
+
+        expect(time.seconds).toBe(-5);
+        expect(time.minutes).toBe(0);
+        expect(time.hours).toBe(0);
+        expect(time.days).toBe(0);
+    });
+
     it("returns right object for ms of 5 minutes and 2 hours", function () {
         var time = totalMsToObj(setup, 1000 * 60 * 5 + 1000 * 60 * 60 * 2);
 

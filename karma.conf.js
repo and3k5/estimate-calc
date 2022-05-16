@@ -15,8 +15,8 @@ module.exports = function (config) {
         frameworks: ['jasmine', "webpack"],
         browsers: ['ChromeHeadless'],
         retryLimit: 0,
-        browserDisconnectTimeout: 5000,
-        browserNoActivityTimeout: 10000,
+        browserDisconnectTimeout: 15000,
+        browserNoActivityTimeout: 30000,
         captureTimeout: 60000,
 
         client: {

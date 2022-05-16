@@ -6,10 +6,11 @@ const timeSetup = new TimeSetup({
     notationsEditor: function (notations) {
         var notation = getNotationByName(notations, "d");
         var dayValue = parseInput(dayParserSetup, dayAmount);
-        console.log(dayValue);
         notation.ms = dayValue.totalMs;
         notation.relativeAmount = dayValue.totalMs / notations[notations.indexOf(notation) - 1].ms;
     }
 });
-var output = calc.parseInput(timeSetup, "37h - 2h");
+var output = calc.parseInput(timeSetup, "0s");
+output.sub(parseInput(timeSetup, "1s"))
+console.log(output.values.map(x => x.notationName+": "+x.value));
 console.log("result: " + output);

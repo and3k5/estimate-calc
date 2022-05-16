@@ -1,1 +1,1 @@
-export calc from "./calc.vue";
+export { default as calcControl } from "./calc-control.vue";
