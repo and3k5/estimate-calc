@@ -1,5 +1,5 @@
 import { Time } from "../../time";
-import { TimePartItem, TimePartsArray } from "../load-string";
+import { TimePartItem, TimePartsArray } from "../load-input";
 
 function parseTimeOrScope(item : TimePartItem) {
     if (item instanceof Time)

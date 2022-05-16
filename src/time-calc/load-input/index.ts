@@ -24,8 +24,11 @@ export function loadStringParts(str : string) {
     const yieldValue = function (v : StringPartItem) {
         a.push(v);
     };
+    const hasStringGoing = function () {
+        return a.length !== 0 && typeof (a[a.length - 1]) === "string";
+    }
     const appendLastString = function (v : string) {
-        if (a.length === 0 || typeof (a[a.length - 1]) !== "string")
+        if (!hasStringGoing())
             a.push("");
         a[a.length - 1] += v;
     };
@@ -48,7 +51,9 @@ export function loadStringParts(str : string) {
 
             do {
                 if (b === "(")
+                {
                     level++;
+                }
                 next();
                 b = get();
                 if (b === ")") {
@@ -62,7 +67,8 @@ export function loadStringParts(str : string) {
 
             yieldValue(loadStringParts(subScope));
         } else {
-            appendLastString(b);
+            if (b.trim() !== "" || hasStringGoing())
+                appendLastString(b);
         }
 
         next();
@@ -89,7 +95,10 @@ export function parseStringParts(setup: TimeSetup, data : StringPartsArray) {
 export type TimePartItem = Time | Action | TimePartsArray;
 export type TimePartsArray = TimePartItem[];
 
-export function loadString(setup: TimeSetup, str: string) {
+export type InputValue = string | string[];
+
+export function loadInput(setup: TimeSetup, inputValue: InputValue) {
+    const str = Array.isArray(inputValue) ? inputValue.map(x => "("+x+")").join(" + ") : inputValue;
     const stringParts = loadStringParts(str);
     return parseStringParts(setup, stringParts);
 }

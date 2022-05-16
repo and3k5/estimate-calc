@@ -36,4 +36,10 @@ describe("parseInput", function () {
 
         expect(result.toString()).toBe("-10m");
     });
+
+    it("can add from array input", function () {
+        var result = parseInput(new TimeSetup(), ["1h 20m", "20m"]);
+
+        expect(result.toString()).toBe("1h 40m");
+    });
 });

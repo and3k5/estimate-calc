@@ -1,10 +1,10 @@
 import { Time } from "../time";
 import { TimeSetup } from "../time/setup";
-import { loadString } from "./load-string";
+import { InputValue, loadInput } from "./load-input";
 import { reduce } from "./reduce";
 
-export function parseInput(setup : TimeSetup, input : string) : Time {
-    const chunks = loadString(setup, input);
+export function parseInput(setup : TimeSetup, input : InputValue) : Time {
+    const chunks = loadInput(setup, input);
     const result = reduce(chunks);
     return result;
 }
