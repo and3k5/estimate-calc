@@ -14,18 +14,37 @@
             justify-content: center;
             height:100%;
         }
-        /* Dark mode */
-    
-        body {
-            background-color: rgb(39, 39, 39);
-            color: white;
-        }
-    
+
         input, select, textarea {
-            background-color:rgb(58 58 58);
-            color:white;
-            border: 1px solid #8e8e8d;
             padding: 1px;
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(39, 39, 39);
+                color: white;
+            }
+
+            input, select, textarea {
+                background-color:rgb(58, 58, 58);
+                color:white;
+                border: 1px solid #8e8e8d;
+            }
+        }
+
+        /* Light mode */
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: white;
+                color: rgb(39, 39, 39);
+            }
+
+            input, select, textarea {
+                background-color:rgb(197, 197, 197);
+                color:rgb(39, 39, 39);
+                border: 1px solid #8e8e8d;
+            }
         }
     </style>
 </head>
