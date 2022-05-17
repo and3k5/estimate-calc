@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><title>Estimate calc</title><style>* {
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Estimate calc</title><style>* {
             margin:0;
             padding:0;
         }
@@ -9,16 +9,35 @@
             justify-content: center;
             height:100%;
         }
-        /* Dark mode */
-    
-        body {
-            background-color: rgb(39, 39, 39);
-            color: white;
-        }
-    
+
         input, select, textarea {
-            background-color:rgb(58 58 58);
-            color:white;
-            border: 1px solid #8e8e8d;
             padding: 1px;
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(39, 39, 39);
+                color: white;
+            }
+
+            input, select, textarea {
+                background-color:rgb(58, 58, 58);
+                color:white;
+                border: 1px solid #8e8e8d;
+            }
+        }
+
+        /* Light mode */
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: white;
+                color: rgb(39, 39, 39);
+            }
+
+            input, select, textarea {
+                background-color:rgb(197, 197, 197);
+                color:rgb(39, 39, 39);
+                border: 1px solid #8e8e8d;
+            }
         }</style></head><body><div class="app-container"><div id="app"></div></div><script src="app.js"></script></body></html>
