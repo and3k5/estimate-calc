@@ -37,7 +37,7 @@ module.exports = {
         "typescript"
     ],
     rules: jsSettings,
-    ignorePatterns: ["src/**/spec.js"],
+    ignorePatterns: ["src/**/spec.js","**/*.conf.js"],
     env: {
         browser: true,
         node: false,
