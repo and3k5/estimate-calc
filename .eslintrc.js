@@ -35,7 +35,7 @@ module.exports = {
         "unused-imports",
     ],
     rules: jsSettings,
-    ignorePatterns: ["src/**/spec.js", "**/*.conf.js", ".eslintrc.js", "webpack.config.js", "run-calc.js"],
+    ignorePatterns: ["dist/**/*.*", "src/**/spec.js", "**/*.conf.js", ".eslintrc.js", "webpack.config.js", "run-calc.js"],
     env: {
         browser: true,
         node: false,

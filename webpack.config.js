@@ -3,8 +3,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = function (env) {
-    const webApp = {
-        entry: "./src",
+    const configuration = /** @type {import("webpack").Configuration} */({
+        entry: {
+            app: {
+                import: "./src/web",
+            },
+            calc: {
+                import: "./src/lib",
+                filename: "calc.js",
+                library: {
+                    name: "calc",
+                    type: "commonjs2",
+                }
+            },
+        },
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
             alias: {
@@ -61,47 +73,28 @@ module.exports = function (env) {
         },
         output: {
             path: path.resolve(__dirname, './dist'),
-            filename: 'app.js'
+            filename: '[name].js',
+            clean: true,
+        },
+        optimization: {
+            minimize: true
         },
         plugins: [
             new VueLoaderPlugin(),
             new HtmlWebpackPlugin({
                 title: "Estimate Calc",
-                template: "./src/web/index.ejs"
+                template: "./src/web/index.ejs",
+                inject: false,
+
+                templateParameters: async (compilation, assets, assetTags, options) => {
+                    return {
+                        script: assets.js[0],
+                    }
+                }
             })
         ]
-    };
-    const lib = {
-        entry: "./src/lib",
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    exclude: /node_modules/,
-                    loader: "ts-loader"
-                },
-                {
-                    test: /\.js$/,
-                    loader: 'babel-loader'
-                },
-            ]
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: 'calc.js',
-            library: {
-                name: "calc",
-                type: "commonjs2",
-            },
-        },
-        optimization: {
-            minimize: true
-        },
-    };
-    return [webApp, lib];
+    });
+    return configuration;
 }
 
 module.exports.createTestConfiguration = function () {
