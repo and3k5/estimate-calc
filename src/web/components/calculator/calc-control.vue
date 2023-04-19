@@ -43,13 +43,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 import { Time } from "../../../time";
 import { parseInput } from "../../../time-calc";
 import { getNotationByName } from '../../../time/notations';
 import { TimeSetup } from '../../../time/setup';
 
-export default Vue.extend({
+export default defineComponent({
     data() {
         return {
             text: "",

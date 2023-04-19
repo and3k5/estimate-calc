@@ -1,4 +1,4 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -6,13 +6,23 @@ module.exports = function (env) {
     const webApp = {
         entry: "./src",
         resolve: {
-            extensions: [ '.tsx', '.ts', '.js' ],
+            extensions: ['.tsx', '.ts', '.js'],
+            alias: {
+                vue: '@vue/compat'
+            }
         },
         module: {
             rules: [
                 {
                     test: /\.vue$/,
-                    loader: 'vue-loader'
+                    loader: 'vue-loader',
+                    options: {
+                        compilerOptions: {
+                            compatConfig: {
+                                MODE: 2
+                            }
+                        }
+                    }
                 },
                 {
                     test: /\.tsx?$/,
@@ -64,7 +74,7 @@ module.exports = function (env) {
     const lib = {
         entry: "./src/lib",
         resolve: {
-            extensions: [ '.tsx', '.ts', '.js' ],
+            extensions: ['.tsx', '.ts', '.js'],
         },
         module: {
             rules: [
@@ -97,7 +107,7 @@ module.exports = function (env) {
 module.exports.createTestConfiguration = function () {
     return {
         resolve: {
-            extensions: [ '.tsx', '.ts', '.js' ],
+            extensions: ['.tsx', '.ts', '.js'],
         },
         module: {
             rules: [

@@ -18,11 +18,11 @@
         ],
     },
     "vueCompilerOptions": {
-        "target": 2.7,
+        "target": 3,
         "extensions": [
             ".vue"
         ]
     },
     "include": ["src/**/*.js","src/**/*.ts"],
-    "exclude": ["src/web/**/*.js","src/web/**/*.ts"]
+    "exclude": ["src/web/**/*.js","src/web/**/*.ts","node_modules"]
 }
