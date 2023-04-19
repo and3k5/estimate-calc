@@ -17,6 +17,7 @@ module.exports = function (env) {
                 {
                     test: /\.tsx?$/,
                     exclude: /node_modules/,
+                    options: { appendTsSuffixTo: [/\.vue$/] },
                     loader: "ts-loader"
                 },
                 {
