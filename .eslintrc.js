@@ -1,19 +1,21 @@
 
 
 const vueSettings = {
-    "no-unused-vars": 1,
+    "no-unused-vars": "off",
     "indent": "off",
     "vue/html-indent": ["warn", 4],
     "no-duplicate-imports": 2,
-    "unused-imports/no-unused-imports": 2,
+    "unused-imports/no-unused-imports": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "vue/valid-attribute-name": "off",
     "vue/valid-model-definition": "off",
     "vue/no-mutating-props": 1,
     "vue/require-v-for-key": 1,
     "vue/no-unused-components": 1,
     "vue/multi-word-component-names": 1,
-    "vue/no-unused-components": 1,
+    "vue/no-undef-components": 1,
     "vue/no-unused-vars": 1,
+    "vue/no-multiple-template-root": "off",
 };
 
 const jsSettings = {
@@ -58,7 +60,7 @@ module.exports = {
                 "project": "./src/web/tsconfig-eslint.json"
             },
             extends: [
-                'plugin:vue/recommended',
+                'plugin:vue/vue3-recommended',
                 "@vue/typescript/recommended"
             ],
             rules: vueSettings,

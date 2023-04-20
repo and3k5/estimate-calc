@@ -19,9 +19,9 @@ module.exports = function (env) {
         },
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
-            alias: {
-                vue: '@vue/compat'
-            }
+            // alias: {
+            //     vue: '@vue/compat'
+            // }
         },
         module: {
             rules: [
@@ -29,11 +29,11 @@ module.exports = function (env) {
                     test: /\.vue$/,
                     loader: 'vue-loader',
                     options: {
-                        compilerOptions: {
-                            compatConfig: {
-                                MODE: 2
-                            }
-                        }
+                        // compilerOptions: {
+                        //     compatConfig: {
+                        //         MODE: 2
+                        //     }
+                        // },
                     }
                 },
                 {
@@ -46,8 +46,16 @@ module.exports = function (env) {
                     test: /\.js$/,
                     loader: 'babel-loader'
                 },
+                // {
+                //     test: /\.scss$/,
+                //     use: [
+                //       'vue-style-loader',
+                //       'css-loader',
+                //       'sass-loader'
+                //     ]
+                // },
                 {
-                    test: /\.css$/i,
+                    test: /\.(css|s(a|c)ss)$/i,
                     oneOf: [
                         {
                             resourceQuery: /module/,
@@ -58,13 +66,15 @@ module.exports = function (env) {
                                     options: {
                                         modules: true
                                     }
-                                }
+                                },
+                                'sass-loader'
                             ]
                         },
                         {
                             use: [
                                 'vue-style-loader',
-                                'css-loader'
+                                'css-loader',
+                                'sass-loader'
                             ]
                         }
                     ],

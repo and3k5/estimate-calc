@@ -1,46 +1,45 @@
 <template>
-    <div :class="$style['time-component']">
-        <div :class="$style['calc']">
-            <div>
-                <input
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+                <TextField
                     v-model="text"
-                    type="text"
+                    label="Time"
                     placeholder="2h 30m + 1h 45m"
-                >
-            </div>
-            <div>
-                Result: <span>{{ formattedResult }}</span>
+                    style="width:100%"
+                />
             </div>
         </div>
 
-        <div :class="$style['settings']">
-            <div>
-                <label>1 day = <input
-                    v-model="dayAmount"
-                    type="text"
-                ></label>
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+                <TextField
+                    :model-value="formattedResult"
+                    label="Result"
+                    style="width:100%"
+                />
             </div>
-            <div>
-                <label>
-                    Result format
-                    <select
-                        v-model="resultFormat"
-                        type="text"
-                    >
-                        <option value="s:total">Total</option>
-                        <template v-if="currentSetup != null">
-                            <option
-                                v-for="notation in currentSetup.notations"
-                                :key="notation.notation"
-                                :value="notation.notation"
-                            >{{ notation.multiName }}</option>
-                        </template>
-                    </select>
-                </label>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+                <MdcSelect
+                    v-model="resultFormat"
+                    label="Result format"
+                    :options="resultFormatOptions"
+                />
+            </div>
+        </div>
+
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+                <TextField
+                    v-model="dayAmount"
+                    label="1 day ="
+                    outlined
+                />
             </div>
         </div>
     </div>
 </template>
+
 
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -48,18 +47,27 @@ import { Time } from "../../../time";
 import { parseInput } from "../../../time-calc";
 import { getNotationByName } from '../../../time/notations';
 import { TimeSetup } from '../../../time/setup';
+import MdcSelect from "../controls/MdcSelect/MdcSelect.vue";
+import TextField from "../controls/textfield/MdcTextField.vue";
 
 export default defineComponent({
+    components: { TextField, MdcSelect },
     data() {
         return {
             text: "",
             dayAmount: "8h",
             dayParserSetup: new TimeSetup(),
             currentSetup: null as TimeSetup | null,
-            resultFormat: "s:total"
+            resultFormat: "s:total",
         };
     },
     computed: {
+        resultFormatOptions() : {text: string, value: string}[] {
+            return [{
+                    text: "Total",
+                    value: "s:total",
+                }].concat(this.currentSetup?.notations.map(n => ({text: n.multiName, value: n.notation})) ?? []);
+        },
         result(): Time | null {
             if (this.currentSetup == null)
                 return null;
@@ -75,7 +83,8 @@ export default defineComponent({
                 if (this.result == null)
                     return "";
                 return this.result.toString();
-            } else {
+            }
+            else {
                 if (this.currentSetup == null)
                     return "";
                 const notation = getNotationByName(this.currentSetup.notations, this.resultFormat);
@@ -98,7 +107,7 @@ export default defineComponent({
                         notation.ms = dayValue.totalMs;
                         notation.relativeAmount = dayValue.totalMs / notations[notations.indexOf(notation) - 1].ms;
                     }
-                })
+                });
             },
             immediate: true,
         }
@@ -106,7 +115,11 @@ export default defineComponent({
 });
 </script>
 
-<style module>
+<style lang="scss">
+@use "@material/layout-grid/mdc-layout-grid";
+</style>
+
+<!-- <style module>
 .time-component {
     display: flex;
     flex-direction: column;
@@ -126,4 +139,4 @@ export default defineComponent({
     border-radius: 5px;
     font-size: inherit;
 }
-</style>
+</style> -->
