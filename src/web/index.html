@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#272727" />
+        <title>Estimate calc</title>
+        <style>
+            html {
+                height: 100%;
+            }
+
+            body {
+                height: 100%;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            .app-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+
+            input,
+            select,
+            textarea {
+                padding: 1px;
+            }
+
+            /* Dark mode */
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background-color: #272727;
+                    color: white;
+                }
+
+                input,
+                select,
+                textarea {
+                    background-color: #3a3a3a;
+                    color: white;
+                    border: 1px solid #8e8e8d;
+                }
+            }
+
+            /* Light mode */
+            @media (prefers-color-scheme: light) {
+                body {
+                    background-color: white;
+                    color: #272727;
+                }
+
+                input,
+                select,
+                textarea {
+                    background-color: #c5c5c5;
+                    color: #272727;
+                    border: 1px solid #8e8e8d;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="app-container">
+            <div id="app"></div>
+        </div>
+        <script type="module" src="./index.ts"></script>
+    </body>
+</html>

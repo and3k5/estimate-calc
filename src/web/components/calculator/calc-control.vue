@@ -1,57 +1,48 @@
 <template>
-    <div class="mdc-layout-grid">
-        <div class="mdc-layout-grid__inner">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                <TextField
-                    v-model="text"
-                    label="Time"
-                    placeholder="2h 30m + 1h 45m"
-                    style="width:100%"
-                />
-            </div>
+    <div class="time-component">
+        <input
+            class="calc"
+            type="text"
+            v-model="text"
+            label="Time"
+            placeholder="2h 30m + 1h 45m"
+            style="width: 100%"
+        />
+        <div>
+            Result:
+            <input
+                class="result"
+                type="text"
+                :value="formattedResult"
+                label="Result"
+                style="width: 100%"
+            />
         </div>
-
-        <div class="mdc-layout-grid__inner">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
-                <TextField
-                    :model-value="formattedResult"
-                    label="Result"
-                    style="width:100%"
-                />
-            </div>
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
-                <MdcSelect
-                    v-model="resultFormat"
-                    label="Result format"
-                    :options="resultFormatOptions"
-                />
-            </div>
-        </div>
-
-        <div class="mdc-layout-grid__inner">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                <TextField
-                    v-model="dayAmount"
-                    label="1 day ="
-                    outlined
-                />
-            </div>
+        <div class="settings">
+            <label>
+                Result format:&nbsp;
+                <select class="format-selector" v-model="resultFormat">
+                    <template v-for="{ text, value } in resultFormatOptions" :key="value">
+                        <option :value="value">{{ text }}</option>
+                    </template>
+                </select> </label
+            ><br />
+            <label>
+                1 day =
+                <input class="day-field" type="text" v-model="dayAmount" outlined />
+            </label>
         </div>
     </div>
 </template>
-
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Time } from "../../../time";
 import { parseInput } from "../../../time-calc";
-import { getNotationByName } from '../../../time/notations';
-import { TimeSetup } from '../../../time/setup';
-import MdcSelect from "../controls/MdcSelect/MdcSelect.vue";
-import TextField from "../controls/textfield/MdcTextField.vue";
+import { getNotationByName } from "../../../time/notations";
+import { TimeSetup } from "../../../time/setup";
 
 export default defineComponent({
-    components: { TextField, MdcSelect },
     data() {
         return {
             text: "",
@@ -62,41 +53,43 @@ export default defineComponent({
         };
     },
     computed: {
-        resultFormatOptions() : {text: string, value: string}[] {
-            return [{
+        resultFormatOptions(): { text: string; value: string }[] {
+            return [
+                {
                     text: "Total",
                     value: "s:total",
-                }].concat(this.currentSetup?.notations.map(n => ({text: n.multiName, value: n.notation})) ?? []);
+                },
+            ].concat(
+                this.currentSetup?.notations.map((n) => ({
+                    text: n.multiName,
+                    value: n.notation,
+                })) ?? [],
+            );
         },
         result(): Time | null {
-            if (this.currentSetup == null)
-                return null;
+            if (this.currentSetup == null) return null;
             try {
                 return parseInput(this.currentSetup, this.text);
-            }
-            catch (e) {
+            } catch {
                 return null;
             }
         },
         formattedResult(): string {
             if (this.resultFormat == "s:total") {
-                if (this.result == null)
-                    return "";
+                if (this.result == null) return "";
                 return this.result.toString();
-            }
-            else {
-                if (this.currentSetup == null)
-                    return "";
+            } else {
+                if (this.currentSetup == null) return "";
                 const notation = getNotationByName(this.currentSetup.notations, this.resultFormat);
                 if (this.result == null) {
                     return "0 " + notation.notation;
                 }
-                return (this.result.totalMs / notation.ms) + " " + notation.notation;
+                return this.result.totalMs / notation.ms + " " + notation.notation;
             }
-        }
+        },
     },
     watch: {
-        "dayAmount": {
+        dayAmount: {
             handler(newValue) {
                 const dayParserSetup = this.dayParserSetup;
                 this.currentSetup = new TimeSetup({
@@ -105,21 +98,26 @@ export default defineComponent({
                         const dayValue = parseInput(dayParserSetup, newValue);
                         console.log(dayValue);
                         notation.ms = dayValue.totalMs;
-                        notation.relativeAmount = dayValue.totalMs / notations[notations.indexOf(notation) - 1].ms;
-                    }
+                        notation.relativeAmount =
+                            dayValue.totalMs / notations[notations.indexOf(notation) - 1].ms;
+                    },
                 });
             },
             immediate: true,
-        }
-    }
+        },
+    },
 });
 </script>
 
 <style lang="scss">
-@use "@material/layout-grid/mdc-layout-grid";
+/*@use "@material/web/layout-grid/mdc-layout-grid";*/
 </style>
 
-<!-- <style module>
+<style scoped>
+.time-component input {
+    border-radius: 5px;
+}
+
 .time-component {
     display: flex;
     flex-direction: column;
@@ -128,15 +126,17 @@ export default defineComponent({
 .time-component .calc {
     display: inline-block;
     font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.time-component .result {
+    display: inline-block;
+    font-size: 2em;
+    margin-bottom: 0.5em;
 }
 
 .time-component .settings {
     display: inline-block;
-    font-size: .75em;
+    font-size: 0.75em;
 }
-
-.time-component input[type="text"] {
-    border-radius: 5px;
-    font-size: inherit;
-}
-</style> -->
+</style>
