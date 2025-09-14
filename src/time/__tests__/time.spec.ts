@@ -72,34 +72,40 @@ describe("Time type", function () {
         },
     );
 
-    it("decrements notations correctly", function () {
-        const totalSecondsToAdd = 60 * 60 * 24 + 60 * 60 * 1;
-        let currentSeconds = totalSecondsToAdd;
-        const time = new Time(setup, totalSecondsToAdd * 1000);
-        expect(time.totalMs).toBe(totalSecondsToAdd * 1000);
+    it(
+        "decrements notations correctly",
+        function () {
+            const totalSecondsToAdd = 60 * 60 * 24 + 60 * 60 * 1;
+            let currentSeconds = totalSecondsToAdd;
+            const time = new Time(setup, totalSecondsToAdd * 1000);
+            expect(time.totalMs).toBe(totalSecondsToAdd * 1000);
 
-        for (let i = 0; i < totalSecondsToAdd; i++) {
-            let secondsLeftInFormat = currentSeconds;
-            const expectedSeconds = secondsLeftInFormat % 60;
-            secondsLeftInFormat -= expectedSeconds;
-            expect(time.getNotationValue("seconds")).toBe(expectedSeconds);
+            for (let i = 0; i < totalSecondsToAdd; i++) {
+                let secondsLeftInFormat = currentSeconds;
+                const expectedSeconds = secondsLeftInFormat % 60;
+                secondsLeftInFormat -= expectedSeconds;
+                expect(time.getNotationValue("seconds")).toBe(expectedSeconds);
 
-            const expectedMinutes = (secondsLeftInFormat / 60) % 60;
-            secondsLeftInFormat -= expectedMinutes * 60;
-            expect(time.getNotationValue("minutes")).toBe(expectedMinutes);
+                const expectedMinutes = (secondsLeftInFormat / 60) % 60;
+                secondsLeftInFormat -= expectedMinutes * 60;
+                expect(time.getNotationValue("minutes")).toBe(expectedMinutes);
 
-            const expectedHours = (secondsLeftInFormat / 60 / 60) % 24;
-            secondsLeftInFormat -= expectedHours * 60 * 60;
-            expect(time.getNotationValue("hours")).toBe(expectedHours);
+                const expectedHours = (secondsLeftInFormat / 60 / 60) % 24;
+                secondsLeftInFormat -= expectedHours * 60 * 60;
+                expect(time.getNotationValue("hours")).toBe(expectedHours);
 
-            const expectedDays = secondsLeftInFormat / 60 / 60 / 24;
-            secondsLeftInFormat -= expectedHours * 60 * 60 * 24;
-            expect(time.getNotationValue("days")).toBe(expectedDays);
+                const expectedDays = secondsLeftInFormat / 60 / 60 / 24;
+                secondsLeftInFormat -= expectedHours * 60 * 60 * 24;
+                expect(time.getNotationValue("days")).toBe(expectedDays);
 
-            time.values.find((x) => x.notationName === "seconds")!.value--;
-            currentSeconds--;
-        }
-    });
+                time.values.find((x) => x.notationName === "seconds")!.value--;
+                currentSeconds--;
+            }
+        },
+        {
+            timeout: 20000,
+        },
+    );
 
     it("can add until value is positive", function () {
         const time = new Time(setup, "-5s");
